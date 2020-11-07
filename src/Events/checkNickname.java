@@ -1,9 +1,8 @@
 package Events;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
-import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
+import com.github.theholywaffle.teamspeak3.api.wrapper.*;
 
 import Main.Main;
 
