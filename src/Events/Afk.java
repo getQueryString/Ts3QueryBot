@@ -29,10 +29,7 @@ public class Afk {
                             Main.api.sendPrivateMessage(c.getId(),
                                     "Du wurdest in den AFK-Channel gemoved, da du stummgeschaltet bist!");
 
-                            DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-                            LocalDateTime dT = LocalDateTime.now();
-                            String dTime = dT.format(fm);
-                            System.out.println("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                            System.out.println("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
                                     + ") has been moved to channel \"afk\" -> is muted(Events.Afk.java:28)");
 
                             FileWriter writer;
@@ -40,7 +37,7 @@ public class Afk {
 
                             try {
                                 writer = new FileWriter(dat, true);
-                                writer.write("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                writer.write("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
                                         + ") has been moved to channel \"afk\" -> is muted(Events.Afk.java:28)");
                                 writer.write(System.getProperty("line.separator"));
                                 writer.flush();
@@ -56,10 +53,7 @@ public class Afk {
                                 Main.api.sendPrivateMessage(c.getId(),
                                         "Du wurdest in den AFK-Channel gemoved, da du abwesend bist!");
 
-                                DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-                                LocalDateTime dT = LocalDateTime.now();
-                                String dTime = dT.format(fm);
-                                System.out.println("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                System.out.println("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
                                         + ") has been moved to channel \"afk\" -> is away(Events.Afk.java:55)");
 
                                 FileWriter writer;
@@ -67,7 +61,7 @@ public class Afk {
 
                                 try {
                                     writer = new FileWriter(dat, true);
-                                    writer.write("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                    writer.write("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
                                             + ") has been moved to channel \"afk\" -> is away(Events.Afk.java:55)");
                                     writer.write(System.getProperty("line.separator"));
                                     writer.flush();

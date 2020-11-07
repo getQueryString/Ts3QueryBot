@@ -7,8 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import com.github.theholywaffle.teamspeak3.api.ChannelProperty;
 import com.github.theholywaffle.teamspeak3.api.TextMessageTargetMode;
@@ -34,6 +32,8 @@ import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
 
 import Main.History;
 import Main.Main;
+
+import javax.sound.sampled.Line;
 
 public class Event {
 
@@ -86,7 +86,7 @@ public class Event {
                 Main.clientChannelHistory.put(c.getId(), new History());
 
                 FileWriter writer;
-                File dat = new File(Main.pjnConfig);
+                File dat = new File(Main.configData);
 
                 try {
                     writer = new FileWriter(dat, true);
@@ -105,18 +105,15 @@ public class Event {
                 Main.api.sendPrivateMessage(c.getId(),
                         "Moin! Schreib mir \"ruhe\", um den Ruhe-Rang zu erhalten.\nDeine Daten wurden aus Sicherheitsgründen gespeichert!");
 
-                DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-                LocalDateTime dT = LocalDateTime.now();
-                String dTime = dT.format(fm);
-                System.out.println("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                        + ") joined the server(Events.Event.java:105)");
+                System.out.println("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                        + ") joined the server(Events.Event.java)");
 
                 FileWriter writer1;
                 File dat1 = new File(Main.consoleConfig);
                 try {
                     writer1 = new FileWriter(dat1, true);
-                    writer1.write("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                            + ") joined the server(Events.Event.java:105)");
+                    writer1.write("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                            + ") joined the server(Events.Event.java)");
                     writer1.write(System.getProperty("line.separator"));
                     writer1.flush();
                     writer1.close();
@@ -139,19 +136,16 @@ public class Event {
                     Main.api.sendPrivateMessage(e.getClientId(),
                             "Sich auf den Server befindenen Teamler wurden benachrichtigt.");
 
-                    DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-                    LocalDateTime dT = LocalDateTime.now();
-                    String dTime = dT.format(fm);
-                    System.out.println("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                            + ") joined the support channel -> needed help(Events.Event.java:139)");
+                    System.out.println("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                            + ") joined the support channel -> needed help(Events.Event.java)");
 
                     FileWriter writer;
                     File dat = new File(Main.consoleConfig);
 
                     try {
                         writer = new FileWriter(dat, true);
-                        writer.write("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                + ") joined the support channel -> needed help(Events.Event.java:139)");
+                        writer.write("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                + ") joined the support channel -> needed help(Events.Event.java)");
                         writer.write(System.getProperty("line.separator"));
                         writer.flush();
                         writer.close();
@@ -164,13 +158,13 @@ public class Event {
                         if (!(sup.isServerQueryClient()) && (sup.isInServerGroup(7))) {
                             Main.api.pokeClient(sup.getId(), c.getNickname() + " benötigt Support!");
 
-                            System.out.println("[" + dTime + "] " + sup.getNickname() + " (" + sup.getUniqueIdentifier()
-                                    + ") were poked because a user entered channel 4(Events.Event.java:165)");
+                            System.out.println("[" + Main.OutputTime() + "] " + sup.getNickname() + " (" + sup.getUniqueIdentifier()
+                                    + ") were poked because a user entered channel 4(Events.Event.java)");
 
                             try {
                                 writer = new FileWriter(dat, true);
-                                writer.write("[" + dTime + "] " + sup.getNickname() + " (" + sup.getUniqueIdentifier()
-                                        + ") were poked because a user entered channel 4(Events.Event.java:165)");
+                                writer.write("[" + Main.OutputTime() + "] " + sup.getNickname() + " (" + sup.getUniqueIdentifier()
+                                        + ") were poked because a user entered channel 4(Events.Event.java)");
                                 writer.write(System.getProperty("line.separator"));
                                 writer.flush();
                                 writer.close();
@@ -187,19 +181,16 @@ public class Event {
                 if (history.isChannelhopping() == 2) {
                     Main.api.pokeClient(c.getId(), "Bitte unterlasse das Channelhopping!");
 
-                    DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-                    LocalDateTime dT = LocalDateTime.now();
-                    String dTime = dT.format(fm);
-                    System.out.println("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                            + ") was warned because he has reached a Main.History-level of 4(+)(Events.Event.java:188)");
+                    System.out.println("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                            + ") was warned because he has reached a Main.History-level of 4(+)(Events.Event.java)");
 
                     FileWriter writer;
                     File dat = new File(Main.consoleConfig);
 
                     try {
                         writer = new FileWriter(dat, true);
-                        writer.write("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                + ") was warned because he has reached a Main.History-level of 4(+)(Events.Event.java:188)");
+                        writer.write("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                + ") was warned because he has reached a Main.History-level of 4(+)(Events.Event.java)");
                         writer.write(System.getProperty("line.separator"));
                         writer.flush();
                         writer.close();
@@ -210,19 +201,16 @@ public class Event {
                 } else if (history.isChannelhopping() == 1) {
                     Main.api.kickClientFromServer("Channelhopping", c.getId());
 
-                    DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-                    LocalDateTime dT = LocalDateTime.now();
-                    String dTime = dT.format(fm);
-                    System.out.println("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                            + ") was kicked from the server because he has reached a Main.History-level of 7(+)(Events.Event.java:211)");
+                    System.out.println("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                            + ") was kicked from the server because he has reached a Main.History-level of 7(+)(Events.Event.java)");
 
                     FileWriter writer;
                     File dat = new File(Main.consoleConfig);
 
                     try {
                         writer = new FileWriter(dat, true);
-                        writer.write("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                + ") was kicked from the server because he has reached a Main.History-level of 7(+)(Events.Event.java:211)");
+                        writer.write("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                + ") was kicked from the server because he has reached a Main.History-level of 7(+)(Events.Event.java)");
                         writer.write(System.getProperty("line.separator"));
                         writer.flush();
                         writer.close();
@@ -263,19 +251,16 @@ public class Event {
                                 Main.api.removeClientFromServerGroup(10, c.getDatabaseId());
                                 Main.api.sendPrivateMessage(c.getId(), "Dir wurde der Quiet-Rang entzogen!");
 
-                                DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-                                LocalDateTime dT = LocalDateTime.now();
-                                String dTime = dT.format(fm);
-                                System.out.println("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                        + ") has withdrawn the quiet-rank(Events.Event.java:263)");
+                                System.out.println("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                        + ") has withdrawn the quiet-rank(Events.Event.java)");
 
                                 FileWriter writer;
                                 File dat = new File(Main.consoleConfig);
 
                                 try {
                                     writer = new FileWriter(dat, true);
-                                    writer.write("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                            + ") has withdrawn the quiet-rank(Events.Event.java:263)");
+                                    writer.write("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                            + ") has withdrawn the quiet-rank(Events.Event.java)");
                                     writer.write(System.getProperty("line.separator"));
                                     writer.flush();
                                     writer.close();
@@ -288,19 +273,16 @@ public class Event {
                                 Main.api.addClientToServerGroup(10, c.getDatabaseId());
                                 Main.api.sendPrivateMessage(c.getId(), "Dir wurde der Quiet-Rang gegeben!");
 
-                                DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-                                LocalDateTime dT = LocalDateTime.now();
-                                String dTime = dT.format(fm);
-                                System.out.println("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                        + ") has been given the quiet-rank(Events.Event.java:288)");
+                                System.out.println("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                        + ") has been given the quiet-rank(Events.Event.java)");
 
                                 FileWriter writer;
                                 File dat = new File(Main.consoleConfig);
 
                                 try {
                                     writer = new FileWriter(dat, true);
-                                    writer.write("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                            + ") has been given the quiet-rank(Events.Event.java:288)");
+                                    writer.write("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                            + ") has been given the quiet-rank(Events.Event.java)");
                                     writer.write(System.getProperty("line.separator"));
                                     writer.flush();
                                     writer.close();
@@ -329,19 +311,16 @@ public class Event {
 
                             }
                         }
-                        DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-                        LocalDateTime dT = LocalDateTime.now();
-                        String dTime = dT.format(fm);
-                        System.out.println("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                + ") has had all normal users displayed on the server(Events.Event.java:327)");
+                        System.out.println("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                + ") has had all normal users displayed on the server(Events.Event.java)");
 
                         FileWriter writer;
                         File dat = new File(Main.consoleConfig);
 
                         try {
                             writer = new FileWriter(dat, true);
-                            writer.write("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                    + ") has had all normal users displayed on the server(Events.Event.java:327)");
+                            writer.write("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                    + ") has had all normal users displayed on the server(Events.Event.java)");
                             writer.write(System.getProperty("line.separator"));
                             writer.flush();
                             writer.close();
@@ -361,19 +340,16 @@ public class Event {
 
                                 }
                             }
-                            DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-                            LocalDateTime dT = LocalDateTime.now();
-                            String dTime = dT.format(fm);
-                            System.out.println("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                    + ") has had all team members displayed on the server(Events.Event.java:359)");
+                            System.out.println("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                    + ") has had all team members displayed on the server(Events.Event.java)");
 
                             FileWriter writer;
                             File dat = new File(Main.consoleConfig);
 
                             try {
                                 writer = new FileWriter(dat, true);
-                                writer.write("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                        + ") has had all team members displayed on the server(Events.Event.java:359)");
+                                writer.write("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                        + ") has had all team members displayed on the server(Events.Event.java)");
                                 writer.write(System.getProperty("line.separator"));
                                 writer.flush();
                                 writer.close();
@@ -392,19 +368,16 @@ public class Event {
                                         + c11.getNickname() + "[/URL]	[" + c11.getCountry() + "]");
 
                             }
-                            DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-                            LocalDateTime dT = LocalDateTime.now();
-                            String dTime = dT.format(fm);
-                            System.out.println("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                    + ") has had all users displayed on the server(Events.Event.java:391)");
+                            System.out.println("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                    + ") has had all users displayed on the server(Events.Event.java)");
 
                             FileWriter writer;
                             File dat = new File(Main.consoleConfig);
 
                             try {
                                 writer = new FileWriter(dat, true);
-                                writer.write("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                        + ") has had all users displayed on the server(Events.Event.java:391)");
+                                writer.write("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                        + ") has had all users displayed on the server(Events.Event.java)");
                                 writer.write(System.getProperty("line.separator"));
                                 writer.flush();
                                 writer.close();
@@ -417,10 +390,7 @@ public class Event {
                 }
                 Path dat = Paths.get(Main.configData);
 
-                DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-                LocalDateTime dT = LocalDateTime.now();
-                String dTime = dT.format(fm);
-                Path datcopy = Paths.get(Main.path + "/PlayerJoinNotation (COPY) " + dTime + ".config");
+                Path datcopy = Paths.get(Main.path + "/PlayerJoinNotation (COPY) " + Main.OutputTime() + ".config");
 
                 if (e.getTargetMode() == TextMessageTargetMode.CLIENT) {
 
@@ -438,18 +408,18 @@ public class Event {
                                  */
                                 Files.copy(dat, datcopy, StandardCopyOption.REPLACE_EXISTING,
                                         StandardCopyOption.COPY_ATTRIBUTES);
-                                System.out.println("!! [" + dTime + "] " + c.getNickname() + " ("
+                                System.out.println("!! [" + Main.OutputTime() + "] " + c.getNickname() + " ("
                                         + c.getUniqueIdentifier() + ") copied " + Main.configData + " to " + Main.path
-                                        + "(Events.Event.java:439)");
+                                        + "(Events.Event.java)");
 
                                 FileWriter writer;
                                 File dat1 = new File(Main.consoleConfig);
 
                                 try {
                                     writer = new FileWriter(dat1, true);
-                                    writer.write("!! [" + dTime + "] " + c.getNickname() + " ("
+                                    writer.write("!! [" + Main.OutputTime() + "] " + c.getNickname() + " ("
                                             + c.getUniqueIdentifier() + ") copied " + Main.configData + " to "
-                                            + Main.path + "(Events.Event.java:439)");
+                                            + Main.path + "(Events.Event.java)");
                                     writer.write(System.getProperty("line.separator"));
                                     writer.flush();
                                     writer.close();
@@ -462,16 +432,16 @@ public class Event {
                                 e2.printStackTrace();
                             }
                         } else {
-                            System.out.println("! [" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                    + ") tried to copy " + dat + "(Events.Event.java:439)");
+                            System.out.println("! [" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                    + ") tried to copy " + dat + "(Events.Event.java)");
 
                             FileWriter writer;
                             File dat2 = new File(Main.consoleConfig);
 
                             try {
                                 writer = new FileWriter(dat2, true);
-                                writer.write("! [" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                        + ") tried to copy " + dat + "(Events.Event.java:439)");
+                                writer.write("! [" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                        + ") tried to copy " + dat + "(Events.Event.java)");
                                 writer.write(System.getProperty("line.separator"));
                                 writer.flush();
                                 writer.close();
@@ -485,11 +455,7 @@ public class Event {
 
                 Path dat1 = Paths.get(Main.consoleConfig);
 
-                DateTimeFormatter fm1 = DateTimeFormatter.ofPattern(Main.tf);
-                LocalDateTime dT1 = LocalDateTime.now();
-                String dTime1 = dT1.format(fm1);
-
-                Path datcopy1 = Paths.get(Main.path + "/Console (COPY) " + dTime1 + ".config");
+                Path datcopy1 = Paths.get(Main.path + "/Console (COPY) " + Main.OutputTime() + ".config");
                 if (e.getTargetMode() == TextMessageTargetMode.CLIENT) {
                     if (e.getMessage().equalsIgnoreCase("!copyconsoleconfig")) {
                         if (c.getUniqueIdentifier().equals("UNIQUEID") && c.isInServerGroup(7)
@@ -497,18 +463,18 @@ public class Event {
                             try {
                                 Files.copy(dat1, datcopy1, StandardCopyOption.REPLACE_EXISTING,
                                         StandardCopyOption.COPY_ATTRIBUTES);
-                                System.out.println("!! [" + dTime1 + "] " + c.getNickname() + " ("
+                                System.out.println("!! [" + Main.OutputTime() + "] " + c.getNickname() + " ("
                                         + c.getUniqueIdentifier() + ") copied " + Main.consoleConfig + " to "
-                                        + Main.path + "(Events.Event.java:498)");
+                                        + Main.path + "(Events.Event.java)");
 
                                 FileWriter writer1;
                                 File dat3 = new File(Main.consoleConfig);
 
                                 try {
                                     writer1 = new FileWriter(dat3, true);
-                                    writer1.write("!! [" + dTime1 + "] " + c.getNickname() + " ("
+                                    writer1.write("!! [" + Main.OutputTime() + "] " + c.getNickname() + " ("
                                             + c.getUniqueIdentifier() + ") copied " + Main.consoleConfig + " to "
-                                            + Main.path + "(Events.Event.java:498)");
+                                            + Main.path + "(Events.Event.java)");
                                     writer1.write(System.getProperty("line.separator"));
                                     writer1.flush();
                                     writer1.close();
@@ -521,16 +487,16 @@ public class Event {
                             }
 
                         } else {
-                            System.out.println("! [" + dTime1 + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                    + ") tried to copy " + dat1 + "(Events.Event.java:498)");
+                            System.out.println("! [" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                    + ") tried to copy " + dat1 + "(Events.Event.java)");
 
                             FileWriter writer;
                             File dat2 = new File(Main.consoleConfig);
 
                             try {
                                 writer = new FileWriter(dat2, true);
-                                writer.write("! [" + dTime1 + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                        + ") tried to copy " + dat1 + "(Events.Event.java:498)");
+                                writer.write("! [" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                        + ") tried to copy " + dat1 + "(Events.Event.java)");
                                 writer.write(System.getProperty("line.separator"));
                                 writer.flush();
                                 writer.close();
@@ -549,16 +515,16 @@ public class Event {
                         Main.api.sendPrivateMessage(c.getId(), " ");
                         Main.api.sendPrivateMessage(c.getId(), "*-[b][u] Aktuelle queryBot-Version [/u][/b]-*");
                         Main.api.sendPrivateMessage(c.getId(), "  " + Main.BotVersion);
-                        System.out.println("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                + ") had the server version printed out(Events.Event.java:551)");
+                        System.out.println("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                + ") had the server version printed out(Events.Event.java)");
 
                         FileWriter writer;
                         File dat2 = new File(Main.consoleConfig);
 
                         try {
                             writer = new FileWriter(dat2, true);
-                            writer.write("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                                    + ") had the server version printed out(Events.Event.java:551)");
+                            writer.write("[" + Main.OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                                    + ") had the server version printed out(Events.Event.java)");
                             writer.write(System.getProperty("line.separator"));
                             writer.flush();
                             writer.close();
@@ -577,14 +543,14 @@ public class Event {
                         Main.api.sendPrivateMessage(c.getId(), "Der Bot wird nun [color=red]heruntergefahren[/color]!");
                         Main.api.logout();
                         Main.api.createServerSnapshot();
-                        System.out.println("  [" + dTime + "] " + "TS3-Bot disconnected(Events.Event.java:578)");
+                        System.out.println("  [" + Main.OutputTime() + "] " + "TS3-Bot disconnected(Events.Event.java)");
 
                         FileWriter writer;
                         File dat2 = new File(Main.consoleConfig);
 
                         try {
                             writer = new FileWriter(dat2, true);
-                            writer.write("  [" + dTime + "] " + "TS3-Bot disconnected(Events.Event.java:578)");
+                            writer.write("  [" + Main.OutputTime() + "] " + "TS3-Bot disconnected(Events.Event.java)");
                             writer.write(System.getProperty("line.separator"));
                             writer.flush();
                             writer.close();

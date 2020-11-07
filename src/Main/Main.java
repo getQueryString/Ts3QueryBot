@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.TS3Config;
@@ -26,38 +25,47 @@ import Events.checkNickname;
 
 public class Main {
 
+    // HashMaps
     public static HashMap<Integer, History> clientChannelHistory = new HashMap<>();
     public static Map<ChannelProperty, String> property = new HashMap<ChannelProperty, String>();
+
+    // ArrayLists
     public static ArrayList<String> words = new ArrayList<>();
     public static ArrayList<Integer> onlineSup = new ArrayList<>();
 
+    // Strings
     public static final String BotVersion = "1.8.2020.13.48";
     public static String tf = "dd.MM.yyyy HH-mm-ss-SS";
     public static String configData = "PlayerJoinNotation.config";
     public static String path = System.getProperty("user.home") + "\\Desktop";
     public static String consoleConfig = "Console.config";
-    public static String pjnConfig = "PlayerJoinNotation.config";
 
+    // Bot configuration
     public static final TS3Config config = new TS3Config();
     public static final TS3Query query = new TS3Query(config);
     public static final TS3Api api = query.getApi();
 
+    // Output time method
+    public static String OutputTime() {
+        DateTimeFormatter fm1 = DateTimeFormatter.ofPattern(tf);
+        LocalDateTime dT1 = LocalDateTime.now();
+        String dTime1 = dT1.format(fm1);
+        return dTime1;
+    }
+
     public static void main(String[] args) {
-        config.setHost("IP-ADDRESS");
+        config.setHost("localhost");
         config.setFloodRate(FloodRate.UNLIMITED);
         query.connect();
 
-        DateTimeFormatter fm = DateTimeFormatter.ofPattern(tf);
-        LocalDateTime dT = LocalDateTime.now();
-        String dTime = dT.format(fm);
-        System.out.println("»  [" + dTime + "] TS3-Bot connected(Main.Main.java:48)");
+        System.out.println("»  [" + OutputTime() + "] TS3-Bot connected(Main.Main.java)");
 
         FileWriter writer;
         File dat = new File(consoleConfig);
 
         try {
             writer = new FileWriter(dat, true);
-            writer.write("»  [" + dTime + "] TS3-Bot connected(Main.Main.java:48)");
+            writer.write("»  [" + OutputTime() + "] TS3-Bot connected(Main.Main.java)");
             writer.write(System.getProperty("line.separator"));
             writer.flush();
             writer.close();
@@ -78,14 +86,11 @@ public class Main {
         checkNickname.start();
         SupportChannelNameUpdate.start();
 
-        DateTimeFormatter fm1 = DateTimeFormatter.ofPattern(tf);
-        LocalDateTime dT1 = LocalDateTime.now();
-        String dTime1 = dT1.format(fm1);
-        System.out.println("»  [" + dTime1 + "] TS3-Bot started(Main.Main.java:73)");
+        System.out.println("»  [" + OutputTime() + "] TS3-Bot started(Main.Main.java)");
 
         try {
             writer = new FileWriter(dat, true);
-            writer.write("»  [" + dTime1 + "] TS3-Bot started(Main.Main.java:73)");
+            writer.write("»  [" + OutputTime() + "] TS3-Bot started(Main.Main.java)");
             writer.write(System.getProperty("line.separator"));
             writer.flush();
             writer.close();
@@ -106,17 +111,14 @@ public class Main {
                     ((History) e.getValue()).removeChannel();
 
                 }
-                DateTimeFormatter fm = DateTimeFormatter.ofPattern(tf);
-                LocalDateTime dT = LocalDateTime.now();
-                String dTime = dT.format(fm);
-                System.out.println("[" + dTime + "] " + "ChannelHistory updated(Main.Main.java:107)");
+                System.out.println("[" + OutputTime() + "] " + "ChannelHistory updated(Main.Main.java)");
 
                 FileWriter writer;
                 File dat = new File(consoleConfig);
 
                 try {
                     writer = new FileWriter(dat, true);
-                    writer.write("[" + dTime + "] " + "ChannelHistory updated(Main.Main.java:107)");
+                    writer.write("[" + OutputTime() + "] " + "ChannelHistory updated(Main.Main.java)");
                     writer.write(System.getProperty("line.separator"));
                     writer.flush();
                     writer.close();
@@ -130,9 +132,7 @@ public class Main {
     }
 
     public static void addWords() {
-        words.add("arsch");
-        words.add("arschloch");
-        words.add("spast");
+        words.add("popo");
 
     }
 
@@ -141,21 +141,18 @@ public class Main {
         if (words.contains(name)) {
             api.kickClientFromServer("Bitte such dir einen vernünftigen Nicknamen aus!", c.getId());
 
-            DateTimeFormatter fm = DateTimeFormatter.ofPattern(tf);
-            LocalDateTime dT = LocalDateTime.now();
-            String dTime = dT.format(fm);
-            System.out.println("[" + dTime + "] name=? (" + c.getUniqueIdentifier()
+            System.out.println("[" + OutputTime() + "] name=? (" + c.getUniqueIdentifier()
                     + ") was kicked out of the server because it was not calling itself properly - name="
-                    + c.getNickname() + "(Main.Main.java:143)");
+                    + c.getNickname() + "(Main.Main.java)");
 
             FileWriter writer;
             File dat = new File(consoleConfig);
 
             try {
                 writer = new FileWriter(dat, true);
-                writer.write("[" + dTime + "] name=? (" + c.getUniqueIdentifier()
+                writer.write("[" + OutputTime() + "] name=? (" + c.getUniqueIdentifier()
                         + ") was kicked out of the server because it was not calling itself properly - name="
-                        + c.getNickname() + "(Main.Main.java:143)");
+                        + c.getNickname() + "(Main.Main.java)");
                 writer.write(System.getProperty("line.separator"));
                 writer.flush();
                 writer.close();
@@ -174,19 +171,16 @@ public class Main {
             }
             api.pokeClient(c.getId(), "Bitte such dir einen vernünftigen Channel-Namen aus!");
 
-            DateTimeFormatter fm = DateTimeFormatter.ofPattern(tf);
-            LocalDateTime dT = LocalDateTime.now();
-            String dTime = dT.format(fm);
-            System.out.println("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                    + ") created channel was deleted because it did not properly name the channel name(Main.Main.java:174)");
+            System.out.println("[" + OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                    + ") created channel was deleted because it did not properly name the channel name(Main.Main.java)");
 
             FileWriter writer;
             File dat = new File(consoleConfig);
 
             try {
                 writer = new FileWriter(dat, true);
-                writer.write("[" + dTime + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
-                        + ") created channel was deleted because it did not properly name the channel name(Main.Main.java:174)");
+                writer.write("[" + OutputTime() + "] " + c.getNickname() + " (" + c.getUniqueIdentifier()
+                        + ") created channel was deleted because it did not properly name the channel name(Main.Main.java)");
                 writer.write(System.getProperty("line.separator"));
                 writer.flush();
                 writer.close();

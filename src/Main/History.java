@@ -16,17 +16,14 @@ public class History {
 
     public void addChannel() {
         channels++;
-        DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-        LocalDateTime dT = LocalDateTime.now();
-        String dTime = dT.format(fm);
-        System.out.println("[" + dTime + "] Main.History-level: " + channels + "(Main.History.java:18)");
+        System.out.println("[" + Main.OutputTime() + "] Main.History-level: " + channels + "(Main.History.java:18)");
 
         FileWriter writer;
         File dat = new File(Main.consoleConfig);
 
         try {
             writer = new FileWriter(dat, true);
-            writer.write("[" + dTime + "] Main.History-level: " + channels + "(Main.History.java:18)");
+            writer.write("[" + Main.OutputTime() + "] Main.History-level: " + channels + "(Main.History.java:18)");
             writer.write(System.getProperty("line.separator"));
             writer.flush();
             writer.close();

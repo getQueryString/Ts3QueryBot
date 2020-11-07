@@ -38,17 +38,14 @@ public class SupportChannelNameUpdate {
                         Main.api.editChannel(4, Main.property);
                         Main.property.clear();
 
-                        DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-                        LocalDateTime dT = LocalDateTime.now();
-                        String dTime = dT.format(fm);
                         System.out.println(
-                                "» [" + dTime + "] channel 4 has been closed(Events.SupportChannelNameUpdate.java:38)");
+                                "» [" + Main.OutputTime() + "] channel 4 has been closed(Events.SupportChannelNameUpdate.java:38)");
 
                         FileWriter writer;
                         File dat = new File(Main.consoleConfig);
                         try {
                             writer = new FileWriter(dat, true);
-                            writer.write("» [" + dTime
+                            writer.write("» [" + Main.OutputTime()
                                     + "] channel 4 has been closed(Events.SupportChannelNameUpdate.java:38)");
                             writer.write(System.getProperty("line.separator"));
                             writer.flush();
@@ -70,18 +67,15 @@ public class SupportChannelNameUpdate {
                         Main.api.editChannel(4, Main.property);
                         Main.property.clear();
 
-                        DateTimeFormatter fm = DateTimeFormatter.ofPattern(Main.tf);
-                        LocalDateTime dT = LocalDateTime.now();
-                        String dTime = dT.format(fm);
                         System.out.println(
-                                "» [" + dTime + "] channel 4 was opened(Events.SupportChannelNameUpdate.java:70)");
+                                "» [" + Main.OutputTime() + "] channel 4 was opened(Events.SupportChannelNameUpdate.java:70)");
 
                         FileWriter writer;
                         File dat = new File(Main.consoleConfig);
                         try {
                             writer = new FileWriter(dat, true);
                             writer.write(
-                                    "» [" + dTime + "] channel 4 was opened(Events.SupportChannelNameUpdate.java:70)");
+                                    "» [" + Main.OutputTime() + "] channel 4 was opened(Events.SupportChannelNameUpdate.java:70)");
                             writer.write(System.getProperty("line.separator"));
                             writer.flush();
                             writer.close();
