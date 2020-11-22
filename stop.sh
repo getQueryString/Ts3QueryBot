@@ -1,0 +1,1 @@
+screen -S queryBOT -X quit
